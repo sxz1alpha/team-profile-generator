@@ -2,14 +2,14 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const generateIndex = require('./lib/Profile');
-const writeFile = require('./utils/generate-site');
+const handler = require('./lib/Profile');
+
 
 
 
 // this file collects the information and passes it to employee
 const templateArray = [];
-const indexArray = [];
+
 
 const profile = () => {
 
@@ -157,20 +157,10 @@ const addEmployee = () => {
         if(data.addEmployee === true) {
             profile();
         } else {
-            generateIndex(templateArray)
-            
-            // .then(pageData => {
-            //     indexArray.push(pageData)
-            //     console.log(indexArray);
-            // })
-            // .then(indexArray => {
-            //     writeFile(indexArray);
-            // })
-            // .catch(err => {
-            //     console.log(err);
-            // })
+            // const templateString = JSON.stringify(templateArray);
+            handler(templateArray);
         }
-    });
+        });
 };
 
 
