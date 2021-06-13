@@ -2,13 +2,18 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
+const generateIndex = require('./lib/Profile');
+const writeFile = require('./utils/generate-site');
+
+
 
 // this file collects the information and passes it to employee
 const templateArray = [];
+const indexArray = [];
 
 const profile = () => {
 
-    inquirer
+    return inquirer
     .prompt([
         {
             type: 'list',
@@ -62,12 +67,12 @@ const profile = () => {
         } else {
             engineerPrompt(data)
         }
-    });
+    })
 };
 
 const managerPrompt = (answers) => {
     
-    inquirer
+    return inquirer
     .prompt([
         {
             type: 'input',
@@ -83,15 +88,15 @@ const managerPrompt = (answers) => {
         }
     ])
     .then(data => {
-        const manager = new Manager(answers.name, answers.id, answers.email, answers.role, data)
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.role, data.number)
        templateArray.push(manager)
        addEmployee();
-    })
+    });
     
-}
+};
 
 const internPrompt = (answers) => {
-    inquirer
+    return inquirer
     .prompt ([
         {
             type: 'input',
@@ -108,14 +113,14 @@ const internPrompt = (answers) => {
         }
     ])
     .then(data => {
-        const intern = new Intern(answers.name, answers.id, answers.email, data)
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.role, data.intern)
         templateArray.push(intern);
         addEmployee();
-    }) 
-}
+    });
+};
 
 const engineerPrompt = (answers) => {
-    inquirer
+    return inquirer
     .prompt([
         {
             type: 'input',
@@ -131,15 +136,15 @@ const engineerPrompt = (answers) => {
         }
     ])
     .then(data => {
-        const engineer = new Engineer(answers.name, answers.id, answers.email, data)
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.role, data.Github)
         templateArray.push(engineer);
         addEmployee();
-    }) 
-}
+    });
+};
 
 // add another prompt that will build the file when the user is done adding data
 const addEmployee = () => {
-    inquirer
+    return inquirer
     .prompt([
         {
             type: 'confirm',
@@ -152,10 +157,22 @@ const addEmployee = () => {
         if(data.addEmployee === true) {
             profile();
         } else {
-            console.log(templateArray)
+            generateIndex(templateArray)
+            
+            // .then(pageData => {
+            //     indexArray.push(pageData)
+            //     console.log(indexArray);
+            // })
+            // .then(indexArray => {
+            //     writeFile(indexArray);
+            // })
+            // .catch(err => {
+            //     console.log(err);
+            // })
         }
-    })
-}
+    });
+};
 
 
-profile();
+
+profile();    
