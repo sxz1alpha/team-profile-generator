@@ -16,5 +16,8 @@ install NPM
 To use this application open the command line in the root directory and type 'node index' then follow the prompts.
 once you get the success message lookinside the dist folder for your finished team profile html page!
 
+* Video explanation
+https://youtu.be/q44JI4Q4lXM
+
 * pre-view
 ![image](https://user-images.githubusercontent.com/80006081/121825189-30ac5000-cc6e-11eb-8ef2-4708a822840d.png)
